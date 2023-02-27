@@ -20,7 +20,7 @@ ci-contre lorsque
 l’on n’applique pas
 le filtre médian.
 
-![](https://github.com/AxelPatron/Steganography-Optimization/blob/main/filtered.jpg)
+![](https://github.com/AxelPatron/Steganography-Optimization/blob/main/unfiltered5.jpg)
 
 Voici donc le
 résultat obtenu avec
@@ -29,8 +29,7 @@ seuil, ainsi que les
 pixels altérés en
 rouge.
 
-![](https://github.com/AxelPatron/Steganography-Optimization/blob/main/unfiltered5.jpg)
-
+![](https://github.com/AxelPatron/Steganography-Optimization/blob/main/filtered.jpg)
 On remarque déjà avec un seuil=5 que le ciel n’est pas altéré
 visuellement, ce qui rend déjà le changement de l’image
 quasiment invisible, tandis qu’avec un seuil=10, on n’aperçoit
