@@ -1,5 +1,7 @@
-# Camoufler des données binaires dans le bruit
-ambiant
+# Camoufler des données binaires dans le bruit ambiant
+
+les zones uniformes tel que le ciel font apparaitre le bruit à une ordre plus faible lorsque l'on cherche à cacher de l'information dans les bits de poids faible d'une image, il serait donc intéressant de pouvoir altérer les pixels dans les zones non-uniformes afin de pouvoir augment l’ordre sans que l’altération de l’image soit
+visible comme le permet cet algorithme.
 
 Afin de différencier les pixels dans les zones uniformes des pixels des zones contrastés, on applique une fonction median() récupérant la valeur du pixels et de ses 8 voisins afin de ressortir la médiane parmi ces 9 valeurs.
 
