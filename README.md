@@ -19,9 +19,24 @@ qui donne l’image
 ci-contre lorsque
 l’on n’applique pas
 le filtre médian.
+
+![](https://github.com/AxelPatron/Steganography-Optimization/blob/main/filtered.jpg)
+
 Voici donc le
 résultat obtenu avec
 un ordre 5 selon le
 seuil, ainsi que les
 pixels altérés en
 rouge.
+
+![](https://github.com/AxelPatron/Steganography-Optimization/blob/main/unfiltered5.jpg)
+
+On remarque déjà avec un seuil=5 que le ciel n’est pas altéré
+visuellement, ce qui rend déjà le changement de l’image
+quasiment invisible, tandis qu’avec un seuil=10, on n’aperçoit
+plus du tout de changement remarquable visuellement.
+
+Il ne nous reste donc qu’à récupérer nos informations
+dissimulé dans l’image en testant le bits de poids faibles de
+chaque pixels et de récupérer les informations des pixels avec
+un témoin.
