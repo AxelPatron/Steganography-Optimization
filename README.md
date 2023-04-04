@@ -18,7 +18,7 @@ la médiane afin de remplacer le dernier bit par un 1 ou un 0.
 On part donc d’une
 image à l’ordre 5
 qui donne l’image
-ci-contre lorsque
+ci-dessous lorsque
 l’on n’applique pas
 le filtre médian.
 
