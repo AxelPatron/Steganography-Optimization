@@ -17,12 +17,12 @@ string i,c;
 
 
 
-int B2D(int n) //Fonction Binaire à Décimal
+int B2D(int n) //Fonction Binaire Ã  DÃ©cimal
 {
     int num = n;
     int dec_value = 0;
 
-    // Initialisation de base à 1, soit 2^0
+    // Initialisation de base Ã  1, soit 2^0
     int base = 1;
 
     int temp = num;
@@ -42,7 +42,7 @@ int B2D(int n) //Fonction Binaire à Décimal
 CImg<unsigned char> median(CImg<unsigned char> T, int seuil, int ordre, ifstream& texte)
 {
     CImg<unsigned char> imgfinal(T.width(),T.height(),1,3,0);
-    vector<string> temoin((T.width())*(T.height()),"0"); //Initialisaition du tableau des résultats
+    vector<string> temoin((T.width())*(T.height()),"0"); //Initialisaition du tableau des rÃ©sultats
     int valeur[T.width()][T.height()]= {0}; //Valeurs de l'image originale
 
     for(int x = 0; x < T.width(); ++x)
@@ -74,11 +74,11 @@ CImg<unsigned char> median(CImg<unsigned char> T, int seuil, int ordre, ifstream
             int liste[9]= {0};  //Initialisation de la liste des 9 valeurs de pixels
             for(int k=0; k<3; k++)
                 for(int l=0; l<3; l++)
-                    liste[k*3+l]=T(x+k,y+l,0); //recupération des 9 valeurs de pixels
+                    liste[k*3+l]=T(x+k,y+l,0); //recupÃ©ration des 9 valeurs de pixels
             sort(liste,liste+9); //Tri dans l'orde croissant de la liste
-            int med=liste[4]; //Récupération de la valeur médiane
+            int med=liste[4]; //RÃ©cupÃ©ration de la valeur mÃ©diane
             if(abs(T(x+1,y+1,0)-med)>seuil) //test T=|C-median(C)|
-                temoin[(x+1)*T.height()+y+1]="1"; //Tableau indiquant les pixels altérables
+                temoin[(x+1)*T.height()+y+1]="1"; //Tableau indiquant les pixels altÃ©rables
         }
 
     int offset=0;
@@ -87,7 +87,7 @@ CImg<unsigned char> median(CImg<unsigned char> T, int seuil, int ordre, ifstream
     {
         for(int y = 0; y < T.height()-2; ++y)
         {
-            if(temoin[(x+1)*T.height()+y+1]=="1") // si le pixel est notée par la liste temoin et qu'il n'appartient pas au contour
+            if(temoin[(x+1)*T.height()+y+1]=="1") // si le pixel est notÃ©e par la liste temoin et qu'il n'appartient pas au contour
             {
                 bitset<8> i=bitset<8>(valeur[x+1][y+1]);
                 string istr=i.to_string();
@@ -95,7 +95,7 @@ CImg<unsigned char> median(CImg<unsigned char> T, int seuil, int ordre, ifstream
                 istr.replace(7,1,"1"); //Remplacement du dernier bits par le temoin
                 pixel_temoin++, //Compte du nombre de pixel comportant le texte
                              offset+=ordre;
-                int image_dec=B2D(stoi(istr)); //Récupération du nouveaux bits en décimal
+                int image_dec=B2D(stoi(istr)); //RÃ©cupÃ©ration du nouveaux bits en dÃ©cimal
                 valeur[x+1][y+1]=image_dec;
             }
             else
@@ -104,7 +104,7 @@ CImg<unsigned char> median(CImg<unsigned char> T, int seuil, int ordre, ifstream
                 string istr=i.to_string();
                 istr.replace(7,1,"0");
                 int image_dec=B2D(stoi(istr));
-//Récupération du nouveaux bits en décimal
+//RÃ©cupÃ©ration du nouveaux bits en dÃ©cimal
                 valeur[x+1][y+1]=image_dec;
             }
 
@@ -128,7 +128,7 @@ int main()
     CImg<unsigned char> finale=median(image,seuil,ordre,texte);
     finale.display();
 
-    ///Déchifremment
+    ///DÃ©chifremment
     vector<int> texteint;
     vector<char> textechar;
     string l="";
@@ -137,11 +137,11 @@ int main()
     {
         for(int y = 0; y < finale.height()-2; ++y)
         {
-            bitset<8> i=bitset<8>(finale(x,y,0)); //On récupère chaque pixel sous forme d'un string de 8 char 0 ou 1
+            bitset<8> i=bitset<8>(finale(x,y,0)); //On rÃ©cupÃ¨re chaque pixel sous forme d'un string de 8 char 0 ou 1
             string istr=i.to_string();
-            if((int)istr.at(7)==49) //On regarde le 8ème bit pour savoir si c'est le témoin, (int)'1' vaut 49 pour un char
+            if((int)istr.at(7)==49) //On regarde le 8Ã¨me bit pour savoir si c'est le tÃ©moin, (int)'1' vaut 49 pour un char
             {
-                for (int i=8-ordre-1; i<7; i++) //On ne prend pas le dernier bit car témoin
+                for (int i=8-ordre-1; i<7; i++) //On ne prend pas le dernier bit car tÃ©moin
                 {
                     if (l.size()<8)
                     {
@@ -152,7 +152,7 @@ int main()
                         texteint.push_back(stoi(l));
                         cout <<(char)stoi(l,nullptr,2);
                         nbr_mots++;
-                        l=istr[i]; // On remplace par le çème bits qui devient donc le 1er du nouveau char
+                        l=istr[i]; // On remplace par le iÃ¨me bits qui devient donc le 1er du nouveau char
                     }
                 }
             }
