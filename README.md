@@ -1,43 +1,36 @@
-# Camoufler des données binaires dans le bruit ambiant
+# Steganography Method: Mask application on Least Significant bits (LSB)
+When hiding information in the least significant bits of an image, uniform areas such as the sky tend to reveal the introduced noise more easily. To mitigate this effect and improve concealment, this algorithm primarily modifies pixels in non-uniform areas of the image.
 
-les zones uniformes tel que le ciel font apparaitre le bruit à une ordre plus faible lorsque l'on cherche à cacher de l'information dans les bits de poids faible d'une image, il serait donc intéressant de pouvoir altérer les pixels dans les zones non-uniformes afin de pouvoir augment l’ordre sans que l’altération de l’image soit
-visible comme le permet cet algorithme.
+## Detecting Non-Uniform Areas
+To differentiate pixels in uniform regions from those in high-contrast areas, a median() filter is applied. This function computes the median intensity of the target pixel and its 8 neighboring pixels. Then, a threshold is set:
 
-Afin de différencier les pixels dans les zones uniformes des pixels des zones contrastés, on applique une fonction median() récupérant la valeur du pixels et de ses 8 voisins afin de ressortir la médiane parmi ces 9 valeurs.
+If the difference between the pixel’s value and the median is large enough, the pixel is considered part of a non-uniform region and can be altered without noticeable visual distortion.
 
-On définit ensuite un seuil afin de faire la différence entre la médiane, si la différence est suffisamment grande, cela signifie qu’on considère le pixel comme dans une zone non uniforme et on va pouvoir altérer les bits de poids faible de ce pixel là.
+## Encoding the Data
+To ensure proper decoding of the hidden information, a marking mechanism is implemented:
 
-Cependant, lors du déchiffrage, il va falloir différencier les
-pixels altérés de ceux qui ne le sont pas, c’est pourquoi nous
-allons devoir réserver le bits de poids faible à un témoin,
-valant 0 s’il est d’origine ou s’il contient une information
-caché.
-On décale donc d’un bits les informations dissimulé et on
-effectue un test avec les informations récupéré par le calcul de
-la médiane afin de remplacer le dernier bit par un 1 ou un 0.
-On part donc d’une
-image à l’ordre 5
-qui donne l’image
-ci-dessous lorsque
-l’on n’applique pas
-le filtre médian.
+The least significant bit (LSB) of each pixel is used as an indicator:
 
-![](https://github.com/AxelPatron/Steganography-Optimization/blob/main/unfiltered5.jpg)
+**•** It is set to 1 if the median filter detects noise in the surrounding area.
+**•** It is set to 0 otherwise.
 
-Voici donc le
-résultat obtenu avec
-un ordre 5 selon le
-seuil, ainsi que les
-pixels altérés en
-rouge.
+The hidden data is then **inserted into the subsequent bits determined by the order parameter**, but only in the pixel bytes where the least significant bit is 1
+
+Here is the resulting image obtained with an **order of 5** with different thresholds, along with the altered pixels containing data highlighted in red right below.
 
 ![](https://github.com/AxelPatron/Steganography-Optimization/blob/main/filtered.jpg)
-On remarque déjà avec un seuil=5 que le ciel n’est pas altéré
-visuellement, ce qui rend déjà le changement de l’image
-quasiment invisible, tandis qu’avec un seuil=10, on n’aperçoit
-plus du tout de changement remarquable visuellement.
 
-Il ne nous reste donc qu’à récupérer nos informations
-dissimulé dans l’image en testant le bits de poids faibles de
-chaque pixels et de récupérer les informations des pixels avec
-un témoin.
+With a threshold of 5, we can already observe that the sky remains visually unaltered, making the image modifications nearly imperceptible. With a threshold of **10**, the changes become completely unnoticeable as you can see with the red pixels.
+
+## Decoding the Hidden Text
+
+The process of decoding the hidden text involves extracting the information that was previously embedded into the least significant bits (LSB) of the image. To begin decoding, the first step is to identify which pixels contain the hidden data. This can be done by examining the least significant bit of each pixel. The pixels where the LSB is set to **1** (as indicated by the median filter in the encoding phase) are the ones that hold the concealed information.
+
+To retrieve the hidden data, the following steps are followed:
+
+**Extracting the LSB:** 
+For each byte of the image, the least significant bit is extracted and stored.
+**•** Reconstructing the Data: The extracted bits are then used to identify wich byte contains the hidden data. The length of the data is often determined by the size of the image and the encoding scheme used.
+**•** Converting to Text: Once the binary data is obtained, it is concatenated and converted back into readable text by interpreting the binary sequence according to a specific character encoding scheme (such as ASCII or UTF-8).
+
+Since the steganography method used in this process involves only altering the pixels in non-uniform areas (where noise is introduced), the surrounding pixels in uniform regions remain unchanged. **This ensures that the decoding process is robust, with minimal visual distortion, even after the extraction of the hidden text.**
