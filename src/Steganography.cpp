@@ -122,7 +122,7 @@ int main()
 {
     int ordre=5;
     int seuil=5;
-    ifstream texte("texte.txt");
+    ifstream texte("text.txt");
     CImg<unsigned char> image("Seatech.ppm"); //Ouverture de l'image
     //image.display();
     CImg<unsigned char> finale=median(image,seuil,ordre,texte);
