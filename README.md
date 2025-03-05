@@ -18,7 +18,7 @@ The hidden data is then **inserted into the subsequent bits determined by the or
 
 Here is the resulting image obtained with an **order of 5** with different thresholds, along with the altered pixels containing data highlighted in red right below.
 
-![](https://github.com/AxelPatron/Steganography-Optimization/blob/main/filtered.jpg)
+![](https://github.com/AxelPatron/Steganography-Optimization/blob/main/docs/filtered.jpg)
 
 With a threshold of 5, we can already observe that the sky remains visually unaltered, making the image modifications nearly imperceptible. With a threshold of **10**, the changes become completely unnoticeable as you can see with the red pixels.
 
